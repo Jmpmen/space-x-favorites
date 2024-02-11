@@ -13,7 +13,7 @@ export async function initializeDatabase() {
     const result = await client.query(
       "CREATE TABLE IF NOT EXISTS favorites (id SERIAL PRIMARY KEY, launch_id INT)"
     );
-    console.log("Table created successfully:", result);
+    // console.log("Table created successfully:", result);
     client.release();
   } catch (error) {
     console.error("Error initializing database:", error);
