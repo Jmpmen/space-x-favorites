@@ -1,12 +1,9 @@
-import { buildSchema } from 'graphql';
-import launch from './launch';
-import rocket from './rocket';
-// ... other imports ...
+import { buildSchema } from "graphql";
+import launchTypes from "./launch";
 
 const schema = buildSchema(`
-  ${launch}
-  ${rocket}
-  
+  ${launchTypes}
+
   type Query {
     launches: [Launch]
     launch(id: ID!): Launch
