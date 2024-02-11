@@ -19,10 +19,13 @@ const resolvers = {
 
   addFavorite: async ({ id }: { id: number }) => {
     const client = await pool.connect();
-    await client.query('INSERT INTO favorites (launch_id) VALUES ($1)', [id]);
+    const result = await client.query(
+      "INSERT INTO favorites (launch_id) VALUES ($1)",
+      [id]
+    );
     client.release();
-    const response = await axios.get(`https://api.spacexdata.com/v3/launches/${id}`);
-    return response.data;
+    // const response = await axios.get(`https://api.spacexdata.com/v3/launches/${id}`);
+    return result.rows[0];
   },
 };
 

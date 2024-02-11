@@ -7,11 +7,11 @@ const schema = buildSchema(`
   type Query {
     launches: [Launch]
     launch(id: ID!): Launch
-    favorites: [Launch]
+    favorites: [Favorite]
   }
 
   type Mutation {
-    addFavorite(id: ID!): Launch
+    addFavorite(launch_id: Int!): Favorite!
   }
 `);
 
