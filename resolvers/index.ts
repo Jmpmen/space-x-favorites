@@ -20,7 +20,7 @@ const resolvers = {
   addFavorite: async ({ id }: { id: number }) => {
     const client = await pool.connect();
     const result = await client.query(
-      "INSERT INTO favorites (launch_id) VALUES ($1)",
+      "INSERT INTO favorites (launch_id) VALUES ($1) RETURNING *",
       [id]
     );
     client.release();

@@ -1,8 +1,10 @@
 import { buildSchema } from "graphql";
 import launchTypes from "./launch";
+import favoriteType from "./favorite";
 
 const schema = buildSchema(`
   ${launchTypes}
+  ${favoriteType}
 
   type Query {
     launches: [Launch]
@@ -11,7 +13,7 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    addFavorite(launch_id: Int!): Favorite!
+    addFavorite(id: Int!): Favorite!
   }
 `);
 
