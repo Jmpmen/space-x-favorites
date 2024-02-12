@@ -28,16 +28,28 @@ export function LaunchCard({ launch }: { launch: Launch }) {
       <CardContent className="flex-grow">
         <form>
           <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Rocket Name</Label>
-              <p>{launch.rocket.rocket_name}</p>
+            <div className="flex justify-between space-y-1.5">
+              <div>
+                <Label htmlFor="site">Site</Label>
+                <p>{launch.launch_site.site_name}</p>
+              </div>
+              <div>
+                <Label htmlFor="year">Launch Year</Label>
+                <p>{launch.launch_year}</p>
+              </div>
+            </div>
+            <div className="flex justify-between space-y-1.5">
+              <div>
+                <Label htmlFor="name">Rocket Name</Label>
+                <p>{launch.rocket.rocket_name}</p>
+              </div>
+              <div>
+                <Label htmlFor="type">Rocket Type</Label>
+                <p>{launch.rocket.rocket_type}</p>
+              </div>
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Rocket Type</Label>
-              <p>{launch.rocket.rocket_type}</p>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Details</Label>
+              <Label htmlFor="details">Details</Label>
               <p className="line-clamp-6">{launch.details}</p>
             </div>
           </div>
@@ -48,7 +60,7 @@ export function LaunchCard({ launch }: { launch: Launch }) {
           to={`/launch/${launch.flight_number}`}
           className={buttonVariants({ variant: 'outline' }) + ' w-full'}
         >
-          View details
+          View more details
         </Link>
 
         <Button className="w-full">Add to favorites</Button>

@@ -1,6 +1,5 @@
 import { getLaunches } from '@/api/launch';
 import Grid from '@/components/Grid';
-// import { Button } from "@/components/ui/button";
 import { useEffect, useState } from 'react';
 
 export default function Home() {
