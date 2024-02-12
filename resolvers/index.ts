@@ -16,18 +16,81 @@ const resolvers = {
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM favorites');
     client.release();
-    return result.rows;
+    const favorites = result.rows.map(row => {
+      const { rocket_name, rocket_type, site_name, ...rest } = row;
+      return {
+        ...rest,
+        rocket: {
+          rocket_name,
+          rocket_type,
+        },
+        launch_site: {
+          site_name,
+        },
+      };
+    })
+    console.log(favorites)
+    return favorites
   },
 
   addFavorite: async ({ id }: { id: number }) => {
     const client = await pool.connect();
-    const result = await client.query(
-      'INSERT INTO favorites (launch_id) VALUES ($1) RETURNING *',
-      [id]
+    const response = await axios.get(
+      `https://api.spacexdata.com/v3/launches/${id}`
     );
+    const launch = response.data;
+    const {
+      flight_number,
+      mission_name,
+      launch_year,
+      rocket: { rocket_name, rocket_type },
+      launch_site: { site_name },
+      launch_success,
+      details,
+    } = launch;
+
+    const result = await client.query(
+      `INSERT INTO favorites (
+        flight_number,
+        mission_name,
+        launch_year,
+        rocket_name,
+        rocket_type,
+        site_name,
+        launch_success,
+        details
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+      RETURNING *`,
+      [
+        flight_number,
+        mission_name,
+        launch_year,
+        rocket_name,
+        rocket_type,
+        site_name,
+        launch_success,
+        details,
+      ]
+    );
+
     client.release();
-    // const response = await axios.get(`https://api.spacexdata.com/v3/launches/${id}`);
-    return result.rows[0];
+    const {
+      rocket_name: name,
+      rocket_type: type,
+      site_name: site,
+      ...rest
+    } = result.rows[0];
+    return {
+      ...rest,
+      rocket: {
+        rocket_name: name,
+        rocket_type: type,
+      },
+      launch_site: {
+        site_name: site,
+      },
+    };
   },
 };
 

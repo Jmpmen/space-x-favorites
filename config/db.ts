@@ -10,9 +10,19 @@ export const pool = new Pool({
 export async function initializeDatabase() {
   try {
     const client = await pool.connect();
-    const result = await client.query(
-      "CREATE TABLE IF NOT EXISTS favorites (id SERIAL PRIMARY KEY, launch_id INT)"
-    );
+    const result = await client.query(`
+      CREATE TABLE IF NOT EXISTS favorites (
+        id SERIAL PRIMARY KEY, 
+        flight_number INT,
+        mission_name TEXT,
+        launch_year TEXT,
+        rocket_name TEXT,
+        rocket_type TEXT,
+        site_name TEXT,
+        launch_success BOOLEAN,
+        details TEXT
+      )
+    `);
     // console.log("Table created successfully:", result);
     client.release();
   } catch (error) {

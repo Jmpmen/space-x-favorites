@@ -1,9 +1,23 @@
-import { Button } from "@/components/ui/button";
+import { getFavorites } from '@/api/launch';
+import Grid from '@/components/Grid';
+import { useEffect, useState } from 'react';
 
 export default function Favorites() {
-  return (
-    <div>
-      <Button>Favorites</Button>
-    </div>
-  );
+  const [favorites, setFavorites] = useState<Launch[]>([]);
+
+  useEffect(() => {
+    const fetchLaunches = async () => {
+      try {
+        const data = await getFavorites();
+        console.log(data);
+        setFavorites(data.favorites);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchLaunches();
+  }, []);
+
+  return <Grid launches={favorites} />;
 }
