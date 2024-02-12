@@ -16,7 +16,33 @@ export const GET_LAUNCHES = `
       launch_success
       links {
         video_link
-        flickr_images
+      }
+      details
+    }
+  }
+`;
+
+export const GET_LAUNCH = `
+  query ($id: Int!) {
+    launch(id: $id) {
+      flight_number
+      mission_name
+      launch_year
+      launch_date_utc
+      rocket {
+        rocket_id
+        rocket_name
+        rocket_type
+      }
+      launch_site {
+        site_name
+        site_name_long
+      }
+      launch_success
+      links {
+        article_link
+        video_link
+        wikipedia
       }
       details
     }
