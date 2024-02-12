@@ -19,11 +19,13 @@ const launchTypes = `
 
     type LaunchSite {
         site_name: String
+        site_name_long: String
     }
 
     type Links {
+        article_link: String
         video_link: String
-        flickr_images: [String]
+        wikipedia: String
     }
 `;
 

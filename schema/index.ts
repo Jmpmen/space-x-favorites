@@ -5,7 +5,7 @@ const schema = buildSchema(`
   ${launchTypes}
   type Query {
     launches: [Launch]
-    launch(id: ID!): Launch
+    launch(id: Int!): Launch
     favorites: [Launch]
   }
 

@@ -18,9 +18,11 @@ type Rocket = {
 
 type LaunchSite = {
   site_name: string;
+  site_name_long: string;
 };
 
 type Links = {
+  article_link: string;
   video_link: string;
-  flickr_images: string[];
+  wikipedia: string;
 };
