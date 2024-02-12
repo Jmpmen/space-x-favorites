@@ -6,17 +6,16 @@ export default function Favorites() {
   const [favorites, setFavorites] = useState<Launch[]>([]);
 
   useEffect(() => {
-    const fetchLaunches = async () => {
+    async function fetchFavorites() {
       try {
         const data = await getFavorites();
-        console.log(data);
         setFavorites(data.favorites);
       } catch (error) {
         console.error(error);
       }
-    };
+    }
 
-    fetchLaunches();
+    fetchFavorites();
   }, []);
 
   return <Grid launches={favorites} />;

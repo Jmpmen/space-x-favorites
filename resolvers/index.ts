@@ -16,7 +16,7 @@ const resolvers = {
     const client = await pool.connect();
     const result = await client.query('SELECT * FROM favorites');
     client.release();
-    const favorites = result.rows.map(row => {
+    const favorites = result.rows.map((row) => {
       const { rocket_name, rocket_type, site_name, ...rest } = row;
       return {
         ...rest,
@@ -28,9 +28,8 @@ const resolvers = {
           site_name,
         },
       };
-    })
-    console.log(favorites)
-    return favorites
+    });
+    return favorites;
   },
 
   addFavorite: async ({ id }: { id: number }) => {
@@ -91,6 +90,15 @@ const resolvers = {
         site_name: site,
       },
     };
+  },
+  removeFavorite: async ({ id }: { id: number }) => {
+    const client = await pool.connect();
+    const result = await client.query(
+      `DELETE FROM favorites WHERE flight_number = $1 RETURNING flight_number`,
+      [id]
+    );
+    client.release();
+    return result.rows[0].flight_number;
   },
 };
 

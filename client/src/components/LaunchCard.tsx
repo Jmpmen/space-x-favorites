@@ -11,7 +11,17 @@ import { Label } from '@/components/ui/label';
 import { Link } from 'react-router-dom';
 import { Badge } from './ui/badge';
 
-export function LaunchCard({ launch }: { launch: Launch }) {
+export function LaunchCard({
+  launch,
+  handleAdd,
+  handleRemove,
+  isFavorite,
+}: {
+  launch: Launch;
+  handleAdd: (id: number) => void;
+  handleRemove: (id: number) => void;
+  isFavorite: boolean;
+}) {
   return (
     <Card className="w-[350px] h-[456px] flex flex-col text-xs">
       <CardHeader>
@@ -62,8 +72,22 @@ export function LaunchCard({ launch }: { launch: Launch }) {
         >
           View more details
         </Link>
-
-        <Button className="w-full">Add to favorites</Button>
+        {isFavorite ? (
+          <Button
+            className="w-full"
+            variant="destructive"
+            onClick={() => handleRemove(launch.flight_number)}
+          >
+            Remove from favorites
+          </Button>
+        ) : (
+          <Button
+            className="w-full"
+            onClick={() => handleAdd(launch.flight_number)}
+          >
+            Add to favorites
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

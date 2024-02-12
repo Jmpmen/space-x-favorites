@@ -6,14 +6,14 @@ export default function Home() {
   const [launches, setLaunches] = useState<Launch[]>([]);
 
   useEffect(() => {
-    const fetchLaunches = async () => {
+    async function fetchLaunches() {
       try {
         const data = await getLaunches();
         setLaunches(data.launches);
       } catch (error) {
         console.error(error);
       }
-    };
+    }
 
     fetchLaunches();
   }, []);

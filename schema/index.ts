@@ -11,6 +11,7 @@ const schema = buildSchema(`
 
   type Mutation {
     addFavorite(id: Int!): Launch!
+    removeFavorite(id: Int!): Int!
   }
 `);
 
