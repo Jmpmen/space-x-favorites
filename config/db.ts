@@ -12,8 +12,7 @@ export async function initializeDatabase() {
     const client = await pool.connect();
     const result = await client.query(`
       CREATE TABLE IF NOT EXISTS favorites (
-        id SERIAL PRIMARY KEY, 
-        flight_number INT,
+        flight_number INT PRIMARY KEY,
         mission_name TEXT,
         launch_year TEXT,
         rocket_name TEXT,
